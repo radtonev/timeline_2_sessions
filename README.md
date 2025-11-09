@@ -52,4 +52,8 @@ Other option is to just modify your input csv column headers accordingly.
 
 **If you have missing mandatory columns you need to add them to your csv!**
 
-
+If you are missing EpochTime as your first column you can use the following command to generate it and output a sorted timeline:
+```
+cat timeline.csv | awk -F, 'BEGIN {OFS=","} NR==1 {print "EpochTime", $0; next} {gsub(/"/, "", $8); cmd = "date -d \"" $8 "\" +%s"; cmd | getline epoch_time; close(cmd); print epoch_time, $0}' | sort -n > sorted-timeline.csv
+```
+$8 needs to correspond to the index of date/time column in your timeline.csv
