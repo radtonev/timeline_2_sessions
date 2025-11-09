@@ -1,6 +1,8 @@
 ### Prerequisites:
 Windows event log in CSV format.
 
+If you have **.evtx** files use this script to convert them to sorted csv timeline: https://github.com/radtonev/bulk-evtx-2-csv
+
 **The events need to be sorted by timestamp ascending!** 
 
 ### Result:
