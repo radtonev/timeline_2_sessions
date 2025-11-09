@@ -26,4 +26,30 @@ Linux: `pwsh timeline_2_sessions.ps1 -TimelineCsv path/to/timeline.csv`
 
 <img width="1394" height="573" alt="image" src="https://github.com/user-attachments/assets/24c63818-0724-4713-b4ca-80074c61a08b" />
 
+#### Troubleshooting:
+
+If you receive errors that a field can't be found in the csv, modify the following lines in the script based on the column headers of the csv you provide in the arguments. Make sure the correspond to the proper value.
+
+```
+# --- Define Field Definitions (Mandatory or Optional) ---
+# Key = variable name; Alternatives = array of possible field names; Mandatory = boolean
+$FieldDefinitions = @(
+    @{ Key='EpochTimeProp'; Alternatives=@('EpochTime'); Mandatory=$true },
+    @{ Key='EventCodeProp'; Alternatives=@('EventCode', 'EventID', 'MY_CUSTOM_COLUMN_HEADER'); Mandatory=$true },
+    @{ Key='TimestampProp'; Alternatives=@('Timestamp', 'TimeGenerated', 'datetime', 'TimeCreated'); Mandatory=$true },
+    @{ Key='TargetUserNameProp'; Alternatives=@('TargetUserName', 'UserName'); Mandatory=$true },
+    @{ Key='LogonTypeProp'; Alternatives=@('LogonType'); Mandatory=$true },
+    @{ Key='TargetLogonIdProp'; Alternatives=@('TargetLogonId', 'TargetId'); Mandatory=$true },
+    @{ Key='SubjectLogonIdProp'; Alternatives=@('SubjectLogonId', 'SubjectId'); Mandatory=$true },
+    @{ Key='SubjectUserNameProp'; Alternatives=@('SubjectUserName', 'SubjectUser'); Mandatory=$false },
+    @{ Key='LegacyLogonIdProp'; Alternatives=@('LogonId'); Mandatory=$false }
+)
+```
+Example:
+@{ Key='EventCodeProp'; Alternatives=@('EventCode', 'EventID', **'MY_CUSTOM_COLUMN_HEADER'**); Mandatory=$true },
+
+Other option is to just modify your input csv column headers accordingly.
+
+**If you have missing mandatory columns you need to add them to your csv!**
+
 
